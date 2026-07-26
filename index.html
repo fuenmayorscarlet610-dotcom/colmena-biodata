@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AEGIS CORE PRO | © SCARLET FUENMAYOR</title>
+    <title>COLMENA BIODATA | © SCARLET FUENMAYOR</title>
     <!-- SDK Oficial de Telegram Mini Apps -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="preload" href="perfil.png" as="image">
-    <link rel="preload" href="AEGIS.png" as="image">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root { 
             --accent-cyan: #00f2ff;
             --accent-crimson: #d90429;
             --accent-violet: #8a2be2;
-            --bg-dark: #050508; 
-            --panel-bg: rgba(12, 12, 18, 0.85);
-            --border-glow: rgba(0, 242, 255, 0.2);
-            --border-crimson: rgba(217, 4, 41, 0.3);
+            --bg-dark: #030305; 
+            --panel-bg: rgba(8, 10, 16, 0.9);
+            --border-glow: rgba(0, 242, 255, 0.25);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
@@ -33,266 +30,123 @@
             align-items: center; 
             justify-content: center; 
             background-image: 
-                radial-gradient(circle at 50% 15%, rgba(138, 43, 226, 0.12) 0%, transparent 60%),
-                radial-gradient(circle at 50% 85%, rgba(0, 242, 255, 0.05) 0%, transparent 50%),
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+                radial-gradient(circle at 50% 10%, rgba(138, 43, 226, 0.18) 0%, transparent 60%),
+                radial-gradient(circle at 50% 90%, rgba(0, 242, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
         }
 
         /* Loader */
         #loader { 
-            position: fixed; 
-            inset: 0; 
-            background: #020204; 
-            z-index: 3000; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
+            position: fixed; inset: 0; background: #020204; z-index: 3000; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
             transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
         }
         .progress-container { 
-            width: 240px; 
-            height: 3px; 
-            background: rgba(255, 255, 255, 0.05); 
-            border-radius: 10px; 
-            margin-top: 25px; 
-            overflow: hidden; 
-            border: 1px solid rgba(0, 242, 255, 0.15); 
+            width: 240px; height: 3px; background: rgba(255, 255, 255, 0.05); 
+            border-radius: 10px; margin-top: 25px; overflow: hidden; border: 1px solid rgba(0, 242, 255, 0.15); 
         }
         #progress-bar { 
-            width: 0%; 
-            height: 100%; 
+            width: 0%; height: 100%; 
             background: linear-gradient(90deg, var(--accent-violet), var(--accent-cyan)); 
-            box-shadow: 0 0 12px var(--accent-cyan); 
-            transition: width 0.1s linear; 
+            box-shadow: 0 0 12px var(--accent-cyan); transition: width 0.1s linear; 
         }
 
         /* Terminal Principal */
         .aegis-terminal {
-            width: 92vw; 
-            max-width: 480px;
-            margin: 20px auto;
-            background: var(--panel-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-glow);
-            border-radius: 20px; 
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 242, 255, 0.03);
-            display: none; 
-            flex-direction: column; 
-            align-items: center; 
-            padding: 30px 22px;
-            position: relative; 
-            overflow: hidden;
+            width: 92vw; max-width: 480px; margin: 20px auto;
+            background: var(--panel-bg); backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glow); border-radius: 20px; 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(0, 242, 255, 0.03);
+            display: none; flex-direction: column; align-items: center; padding: 28px 20px;
+            position: relative; overflow: hidden;
         }
 
         .aegis-terminal::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
             background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-crimson), transparent);
         }
 
-        /* Perfil */
-        .profile-box { position: relative; width: 100px; height: 100px; margin-bottom: 14px; }
+        /* Header & Foto */
+        .profile-box { position: relative; width: 95px; height: 95px; margin-bottom: 12px; }
         .ring { 
-            width: 100%; height: 100%; 
-            border: 1px solid var(--accent-cyan); 
-            border-radius: 50%; 
-            padding: 5px; 
-            position: relative; 
-            box-shadow: 0 0 25px rgba(0, 242, 255, 0.25); 
+            width: 100%; height: 100%; border: 1px solid var(--accent-cyan); border-radius: 50%; 
+            padding: 4px; position: relative; box-shadow: 0 0 20px rgba(0, 242, 255, 0.2); 
         }
         .profile-img { 
-            width: 100%; height: 100%; 
-            border-radius: 50%; 
-            background: url('perfil.png') center 15%/cover no-repeat; 
+            width: 100%; height: 100%; border-radius: 50%; 
+            background: url('perfil.png') center/cover no-repeat; 
             border: 1px solid rgba(0, 242, 255, 0.4); 
-            filter: contrast(1.15) brightness(0.95) saturate(1.1);
-            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
         }
         .laser { 
-            position: absolute; 
-            width: 100%; 
-            height: 2px; 
-            background: var(--accent-crimson); 
-            box-shadow: 0 0 10px var(--accent-crimson); 
-            animation: scan 3s infinite ease-in-out; 
-            left: 0; 
-            z-index: 5; 
+            position: absolute; width: 100%; height: 2px; background: var(--accent-crimson); 
+            box-shadow: 0 0 10px var(--accent-crimson); animation: scan 3s infinite ease-in-out; left: 0; z-index: 5; 
         }
         @keyframes scan { 0% { top: 10%; opacity: 0; } 50% { opacity: 1; } 100% { top: 90%; opacity: 0; } }
 
-        .dev-tag { 
-            color: var(--accent-crimson); 
-            font-size: 0.65rem; 
-            font-weight: 800; 
-            letter-spacing: 4px; 
-            margin-bottom: 6px; 
-            text-shadow: 0 0 10px rgba(217, 4, 41, 0.4); 
+        .dev-tag { color: var(--accent-crimson); font-size: 0.62rem; font-weight: 800; letter-spacing: 4px; margin-bottom: 4px; }
+        h2 { font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 2px; color: #ffffff; font-weight: 800; }
+        .sync-text { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; margin: 4px 0 16px; color: var(--accent-cyan); opacity: 0.8; }
+
+        /* Módulos Tácticos & Biométricos */
+        .bio-stats {
+            width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px;
         }
-        h2 { 
-            margin: 0; 
-            font-family: 'Cinzel', serif;
-            font-size: 1.35rem; 
-            letter-spacing: 3px; 
-            color: #ffffff; 
-            text-align: center; 
-            font-weight: 800;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        .stat-card {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(0, 242, 255, 0.1);
+            border-radius: 8px; padding: 8px 4px; text-align: center;
         }
-        .sync-text { 
-            font-family: 'Share Tech Mono', monospace; 
-            font-size: 0.68rem; 
-            margin: 6px 0 18px; 
-            color: var(--accent-cyan); 
-            opacity: 0.8; 
-            text-transform: uppercase; 
-            letter-spacing: 1.5px;
-        }
+        .stat-val { font-size: 0.75rem; color: var(--accent-cyan); font-family: 'Share Tech Mono'; font-weight: bold; }
+        .stat-lbl { font-size: 0.5rem; color: #8a8d93; letter-spacing: 1px; margin-top: 2px; }
 
         /* Formulario Biodata */
         .input-group { width: 100%; }
         .t-field, .t-area { 
-            width: 100%; 
-            background: rgba(5, 8, 15, 0.7); 
-            border: 1px solid rgba(0, 242, 255, 0.15); 
-            border-radius: 10px; 
-            padding: 14px 16px; 
-            color: #fff; 
-            font-family: 'Share Tech Mono', monospace; 
-            margin-bottom: 12px; 
-            outline: none; 
-            font-size: 0.85rem; 
-            transition: all 0.3s ease;
+            width: 100%; background: rgba(3, 5, 10, 0.8); border: 1px solid rgba(0, 242, 255, 0.18); 
+            border-radius: 10px; padding: 12px 14px; color: #fff; font-family: 'Share Tech Mono', monospace; 
+            margin-bottom: 10px; outline: none; font-size: 0.8rem; transition: all 0.3s ease;
         }
-        .t-field:focus, .t-area:focus {
-            border-color: var(--accent-cyan);
-            background: rgba(0, 242, 255, 0.03);
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.15);
-        }
-        .t-area { height: 70px; resize: none; }
+        .t-field:focus, .t-area:focus { border-color: var(--accent-cyan); box-shadow: 0 0 12px rgba(0, 242, 255, 0.2); }
+        .t-area { height: 65px; resize: none; }
 
         .btn-main { 
-            width: 100%; 
-            padding: 16px; 
-            border-radius: 10px; 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            background: linear-gradient(135deg, #d90429, #8a2be2); 
-            color: white; 
-            font-weight: 800; 
-            font-family: 'Orbitron'; 
-            cursor: pointer; 
-            font-size: 0.85rem; 
-            box-shadow: 0 4px 20px rgba(217, 4, 41, 0.35); 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-            margin: 5px 0 18px; 
+            width: 100%; padding: 14px; border-radius: 10px; border: none; 
+            background: linear-gradient(135deg, #d90429, #8a2be2); color: white; 
+            font-weight: 800; font-family: 'Orbitron'; cursor: pointer; font-size: 0.8rem; 
+            box-shadow: 0 4px 18px rgba(217, 4, 41, 0.35); letter-spacing: 2px; margin-bottom: 10px; 
+        }
+
+        /* Botón de Descarga PDF Proyecto */
+        .btn-pdf {
+            width: 100%; padding: 12px; border-radius: 10px; 
+            border: 1px solid var(--accent-cyan); background: rgba(0, 242, 255, 0.05); 
+            color: var(--accent-cyan); font-family: 'Share Tech Mono'; font-size: 0.72rem; 
+            font-weight: bold; cursor: pointer; letter-spacing: 1.5px; text-decoration: none; 
+            display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 16px;
             transition: all 0.3s ease;
         }
-        .btn-main:hover {
-            box-shadow: 0 6px 25px rgba(217, 4, 41, 0.55);
-            transform: translateY(-1px);
-        }
+        .btn-pdf:hover { background: rgba(0, 242, 255, 0.15); box-shadow: 0 0 15px rgba(0, 242, 255, 0.3); }
 
-        .grid-links { 
-            display: none; 
-            width: 100%; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 10px; 
-            margin-bottom: 18px; 
-        }
-        .c-link { 
-            font-size: 0.6rem; 
-            padding: 12px 4px; 
-            border-radius: 8px; 
-            color: white; 
-            text-decoration: none; 
-            font-weight: bold; 
-            text-align: center; 
-            letter-spacing: 1px;
-            transition: opacity 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
+        .grid-links { display: none; width: 100%; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+        .c-link { font-size: 0.58rem; padding: 10px 2px; border-radius: 8px; color: white; text-decoration: none; font-weight: bold; text-align: center; }
 
-        /* CATÁLOGO COLMENA */
-        .catalog { 
-            width: 100%; 
-            border-top: 1px solid rgba(255, 255, 255, 0.08); 
-            padding-top: 16px; 
-            margin-top: 6px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-        }
-        .catalog-title { 
-            font-size: 0.62rem; 
-            color: var(--accent-cyan); 
-            margin-bottom: 12px; 
-            letter-spacing: 3px; 
-            font-weight: 800; 
-            text-align: center; 
-        }
-        .catalog-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 10px; 
-            width: 100%; 
-        }
-        .cat-item { 
-            font-size: 0.6rem; 
-            border: 1px solid rgba(255, 255, 255, 0.06); 
-            border-radius: 8px; 
-            padding: 10px 6px; 
-            background: rgba(255, 255, 255, 0.02); 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            font-weight: 700; 
-            text-align: center;
-            color: #c8d6e5;
-        }
-
-        #phrase { 
-            min-height: 30px; 
-            font-family: 'Share Tech Mono', monospace; 
-            font-size: 0.7rem; 
-            margin-top: 14px; 
-            text-align: center; 
-            color: #fff; 
-            text-shadow: 0 0 8px rgba(0, 242, 255, 0.6); 
-        }
-        
+        /* Footer y Logo */
         .footer-logo { 
-            width: 65px; 
-            height: 65px; 
-            border: 1px solid rgba(0, 242, 255, 0.3); 
-            border-radius: 50%; 
-            margin: 16px 0 10px; 
-            padding: 5px;
-            background: #020204;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            width: 55px; height: 55px; border: 1px solid rgba(0, 242, 255, 0.3); border-radius: 50%; 
+            margin: 14px 0 8px; padding: 4px; background: #020204;
             display: flex; align-items: center; justify-content: center;
         }
         .footer-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
-        
-        .copy { 
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.55rem; 
-            opacity: 0.6; 
-            letter-spacing: 1.5px; 
-            text-align: center; 
-            color: var(--accent-cyan); 
-        }
+        .copy { font-family: 'Share Tech Mono', monospace; font-size: 0.52rem; opacity: 0.6; letter-spacing: 1px; text-align: center; color: var(--accent-cyan); }
     </style>
 </head>
 <body>
 
 <div id="loader">
-    <div id="load-status" style="letter-spacing: 5px; font-weight: 800; color: var(--accent-cyan); font-size: 0.65rem;">INITIALIZING COLMENA CORE...</div>
+    <div id="load-status" style="letter-spacing: 4px; font-weight: 800; color: var(--accent-cyan); font-size: 0.65rem;">CELDA BIODATA: INICIALIZANDO...</div>
     <div class="progress-container"><div id="progress-bar"></div></div>
-    <button onclick="boot()" id="ignite-btn" style="margin-top:35px; background: linear-gradient(135deg, var(--accent-crimson), #8a2be2); border: 1px solid rgba(255, 255, 255, 0.2); color:white; padding:12px 38px; font-family:'Orbitron'; border-radius:20px; font-weight:800; cursor:pointer; opacity: 0; display:none; box-shadow: 0 0 25px rgba(217, 4, 41, 0.4); letter-spacing: 2px;">IGNITE CORE</button>
+    <button onclick="boot()" id="ignite-btn" style="margin-top:30px; background: linear-gradient(135deg, var(--accent-crimson), #8a2be2); border: none; color:white; padding:12px 32px; font-family:'Orbitron'; border-radius:20px; font-weight:800; cursor:pointer; opacity: 0; display:none; box-shadow: 0 0 20px rgba(217, 4, 41, 0.4); letter-spacing: 2px;">INGRESAR A LA CELDA</button>
 </div>
 
 <div class="aegis-terminal" id="terminal">
@@ -301,12 +155,34 @@
     </div>
     <div class="dev-tag">NÚCLEO COLMENA BIODATA</div>
     <h2>SCARLET FUENMAYOR</h2>
-    <div class="sync-text">[ UPLINK TELEGRAM: <span id="user-tg">SINCRO ALFA</span> ]</div>
+    <div class="sync-text">[ ID NODO TELEGRAM: <span id="user-tg">BELLA BAXTER CORE</span> ]</div>
+
+    <!-- Indicadores de Celda de Laboratorio -->
+    <div class="bio-stats">
+        <div class="stat-card">
+            <div class="stat-val">99.8%</div>
+            <div class="stat-lbl">SINCRO NODO</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-crimson)">ACTIVO</div>
+            <div class="stat-lbl">DIAGNOSTICO</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-val">ALFA-1</div>
+            <div class="stat-lbl">CELDA LAB</div>
+        </div>
+    </div>
+
+    <!-- Botón de Descarga del PDF explicativo -->
+    <a href="Prototipo_Colmena_Biodata.pdf" download class="btn-pdf">
+        📄 DESCARGAR MANIFIESTO PDF
+    </a>
 
     <div class="input-group">
         <input type="text" id="c-name" class="t-field" placeholder="ALIAS / ENTIDAD BIODATA">
-        <textarea id="c-req" class="t-area" placeholder="HUELLA COGNITIVA / REQUERIMIENTOS TÉCNICOS"></textarea>
-        <button class="btn-main" onclick="execute()">SINCRONIZAR NODO BIODATA</button>
+        <textarea id="c-req" class="t-area" placeholder="SINTETIZA TU EXISTENCIA / DIAGNÓSTICO / AYUDA"></textarea>
+        <button class="btn-main" onclick="execute()">REGISTRAR EN LA COLMENA</button>
+        
         <div class="grid-links" id="links">
             <a id="wa-btn" href="#" target="_blank" class="c-link" style="background: #0f6e5e;">WHATSAPP</a>
             <a id="tg-btn" href="#" target="_blank" class="c-link" style="background: #0077b5;">TELEGRAM</a>
@@ -314,100 +190,74 @@
         </div>
     </div>
 
-    <div class="catalog">
-        <div class="catalog-title">[ MODULOS COLMENA ]</div>
-        <div class="catalog-grid">
-            <div class="cat-item">🧬 INMORTALIDAD DIGITAL</div>
-            <div class="cat-item">🛡️ AUXILIO TEMPRANO</div>
-            <div class="cat-item">💻 DIAGNÓSTICO PCB</div>
-            <div class="cat-item">⚡ REDES DE INFLUENCIA</div>
-        </div>
-    </div>
+    <div id="phrase" style="font-family:'Share Tech Mono'; font-size:0.68rem; margin:10px 0; color:var(--accent-cyan); text-align:center;"></div>
 
-    <div id="phrase"></div>
-    <div class="footer-logo"><img src="AEGIS.png" alt="AEGIS"></div>
+    <!-- Logo con Respaldo Automático si falla la imagen -->
+    <div class="footer-logo">
+        <img src="AEGIS.png" alt="AEGIS" onerror="this.onerror=null; this.src='aegis.png';">
+    </div>
     <div class="copy">
-        © 2026 SCARLET FUENMAYOR | PROTOCOLO BIODATA
+        © 2026 SCARLET FUENMAYOR | AFORO & APORTE MASIVO RECÍPROCO
     </div>
 </div>
 
 <audio id="bgm" loop preload="auto"><source src="musica.mp3" type="audio/mpeg"></audio>
 
 <script>
-    // Inicialización del entorno Telegram Mini App
     const tgApp = window.Telegram?.WebApp;
-    if (tgApp) {
-        tgApp.ready();
-        tgApp.expand(); // Expande la pantalla completa en Telegram
-    }
+    if (tgApp) { tgApp.ready(); tgApp.expand(); }
 
     const bgm = document.getElementById('bgm');
     const bar = document.getElementById('progress-bar');
     const ignite = document.getElementById('ignite-btn');
-    const status = document.getElementById('load-status');
 
     let width = 0;
     let interval = setInterval(() => {
         if (width >= 100) {
             clearInterval(interval);
-            status.innerHTML = "SYSTEM READY";
+            document.getElementById('load-status').innerText = "CELDA CONECTADA";
             ignite.style.display = 'block';
             setTimeout(() => ignite.style.opacity = '1', 50);
         } else {
-            width += 2;
-            bar.style.width = width + '%';
+            width += 2; bar.style.width = width + '%';
         }
     }, 20); 
 
     function boot() {
-        bgm.play().catch(e => console.log("Audio manual interact"));
+        bgm.play().catch(e => console.log("Audio interact required"));
         document.getElementById('loader').style.opacity = '0';
         setTimeout(() => {
             document.getElementById('loader').style.display = 'none';
             document.getElementById('terminal').style.display = 'flex';
             
-            // Detectar si la persona entró desde Telegram y mostrar su nombre
             if (tgApp?.initDataUnsafe?.user) {
-                const user = tgApp.initDataUnsafe.user;
-                document.getElementById('user-tg').innerText = `@${user.username || user.first_name}`;
-                document.getElementById('c-name').value = user.first_name + (user.last_name ? " " + user.last_name : "");
+                const u = tgApp.initDataUnsafe.user;
+                document.getElementById('user-tg').innerText = `@${u.username || u.first_name}`;
+                document.getElementById('c-name').value = u.first_name + (u.last_name ? " " + u.last_name : "");
             }
-            type();
         }, 600);
-    }
-
-    const txt = "EL PRESENTE ES HOY Y ESTÁ A TU ALCANCE AHORA";
-    let n = 0;
-    function type() { 
-        if(n < txt.length) { 
-            document.getElementById('phrase').innerHTML += txt.charAt(n); 
-            n++; 
-            setTimeout(type, 45); 
-        } 
     }
 
     async function execute() {
         const u = document.getElementById('c-name').value;
         const r = document.getElementById('c-req').value;
         if(!u || !r) return;
+
         document.getElementById('links').style.display = 'grid';
-        document.getElementById('phrase').innerHTML = "<span style='color:var(--accent-crimson)'>[ REGISTRANDO EN COLMENA BIODATA... ]</span>";
+        document.getElementById('phrase').innerHTML = "[ SINCRONIZANDO BIODATA CON BELLA BAXTER... ]";
         
-        const msg = `🚨 *NUEVO NODO BIODATA*%0A*ENTIDAD:* ${u}%0A*BIODATA/REQ:* ${r}`;
+        const msg = `🚨 *NUEVO NODO BIODATA COLMENA*%0A*ENTIDAD:* ${u}%0A*SINTESIS:* ${r}`;
         const token = "8584036667:AAE3Scxy03MuZrtzFQbGPPSh332kpxvFElI";
         fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=584248364108&text=${msg}&parse_mode=Markdown`);
 
-        // Si está en Telegram Mini App, envía la data directamente al Bot
-        if (tgApp) {
-            tgApp.sendData(JSON.stringify({ alias: u, biodata: r }));
-        }
+        if (tgApp) { tgApp.sendData(JSON.stringify({ alias: u, biodata: r })); }
 
         document.getElementById('wa-btn').href = `https://wa.me/584248364108?text=${msg}`;
-        document.getElementById('em-btn').href = `mailto:Fuenmayorscarlet610@gmail.com?subject=COLMENA: ${u}&body=${r}`;
+        document.getElementById('em-btn').href = `mailto:Fuenmayorscarlet610@gmail.com?subject=BIODATA: ${u}&body=${r}`;
         document.getElementById('tg-btn').href = `https://t.me/AegisSystem_Bot?text=${msg}`;
         
-        setTimeout(() => { document.getElementById('phrase').innerHTML = "NODO REGISTRADO. SELECCIONE CANAL."; }, 1000);
+        setTimeout(() => { document.getElementById('phrase').innerHTML = "NODO SINTETIZADO. SELECCIONE CANAL."; }, 1000);
     }
 </script>
 </body>
-  </html>
+        </html>
